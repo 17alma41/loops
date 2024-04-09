@@ -36,27 +36,28 @@ public class A : MonoBehaviour
     IEnumerator loops()
     {
         for (int i = start; i <= start + lenght -1; i++)
-            for (int j = start; j <= start + lenght - 1; j++)
-            {
-
-                //position = new Vector3(j, i, 0);
-                //InstantiateAt(position);
-                //yield return new WaitForSeconds(timeBetweenPrints);
-
-                //if (i == j) //Diagonal
-                //{
-                //    position = new Vector3(j, i, 0);
-                //    InstantiateAt(position);
-                //    yield return new WaitForSeconds(timeBetweenPrints); 
-                //}
-
-                if (true) //Marco
+            for (int j = start; j <= start + lenght -1; j++)
+                for (int k = start; k <= start + lenght -1; k++)
                 {
-                    position = new Vector3(j, i, 0);
+
+                    position = new Vector3(j, i, k);
                     InstantiateAt(position);
                     yield return new WaitForSeconds(timeBetweenPrints);
+
+                    //if (i == j) //Diagonal
+                    //{
+                    //    position = new Vector3(j, i, 0);
+                    //    InstantiateAt(position);
+                    //    yield return new WaitForSeconds(timeBetweenPrints); 
+                    //}
+
+                    //if (i == start || i == start + lenght -1 || j == start || j == start + lenght -1) //Marco
+                    //{
+                    //    position = new Vector3(j, i, 0);
+                    //    InstantiateAt(position);
+                    //    yield return new WaitForSeconds(timeBetweenPrints);
+                    //}
                 }
-            }
     }
 
     void InstantiateAt(Vector3 position)
@@ -70,5 +71,15 @@ public class A : MonoBehaviour
         instantiated.name = "Sphere " + numberInstantiated++;
         print("Placing " + instantiated.name + " at " + position);
 
+        float Normalize(float value, float min, float max)
+        {
+            return (value - min) / (max - min);
+        }
+
+        instantiated.GetComponent<MeshRenderer>().material.color = new Color(
+        Normalize(position.x, 0, 5),
+        Normalize(position.y, 0, 5),
+        Normalize(position.z, 0, 5));
+                    
     }
 }

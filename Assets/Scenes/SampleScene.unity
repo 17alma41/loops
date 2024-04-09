@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start: 0
-  lenght: 4
+  lenght: 5
   timeBetweenPrints: 0.2
   prefab: {fileID: 6734986796709433644, guid: 0a512fc0c20ba424e9473eccd8512737, type: 3}
 --- !u!4 &1738933320
