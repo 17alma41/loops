@@ -315,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1738933320}
-  - component: {fileID: 1738933321}
+  - component: {fileID: 1738933322}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: Untagged
@@ -338,7 +338,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1738933321
+--- !u!114 &1738933322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,11 +352,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: 0
   lenght: 5
-  timeBetweenPrints: 0.2
+  timeBetweenPrints: 0.1
   prefab: {fileID: 6734986796709433644, guid: 0a512fc0c20ba424e9473eccd8512737, type: 3}
   rotate: 1
-  rotationSpeed: {x: 4.81, y: 4.51, z: 3.94}
-  instantedObjects: []
+  rotationSpeed: {x: 2.35, y: 1.51, z: 1.35}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
