@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class While : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class While : MonoBehaviour
 
     [SerializeField] AnimationCurve ease;
     [SerializeField] float animationDuration;
+    [SerializeField] float rotationDuration;
+
     float elapsedTime;
 
     // Start is called before the first frame update
@@ -20,6 +23,7 @@ public class While : MonoBehaviour
 
         elapsedTime = 0;
         StartCoroutine(AnimationLinearInterpolation());
+        StartCoroutine(LerpRotation());
     }
 
 
@@ -40,10 +44,24 @@ public class While : MonoBehaviour
 
     }
 
-
     void IndexCount()
     {
         startPoint = endPoint;
         endPoint = (startPoint + 1) % Points.Count;
+    }
+
+    IEnumerator LerpRotation()
+    {
+        while (true)
+        {
+            elapsedTime = 0;
+
+            while (elapsedTime < rotationDuration)
+            {
+                //transform.rotation = Quaternion.LerpUnclamped(fromRotation, toRotation, ease.Evaluate(1f - elapsedTime / rotationDuration));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
     }
 }
