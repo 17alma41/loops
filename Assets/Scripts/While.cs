@@ -6,24 +6,25 @@ using UnityEngine.UIElements;
 public class While : MonoBehaviour
 {
     [SerializeField] Transform objectToMove;
-    [SerializeField] List<Transform> Points;
-    int startPoint = 0;
-    int endPoint = 1;
+    [SerializeField] Transform[] points;
+    int from = 0;
+    int to = 1;
+
+    [SerializeField] Color[] colors;
+    Material material;
 
     [SerializeField] AnimationCurve ease;
     [SerializeField] float animationDuration;
-    [SerializeField] float rotationDuration;
 
     float elapsedTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        //https://gamedevbeginner.com/the-right-way-to-lerp-in-unity-with-examples/
+        material = objectToMove.GetComponent<MeshRenderer>().material;
 
-        elapsedTime = 0;
+        //https://gamedevbeginner.com/the-right-way-to-lerp-in-unity-with-examples/
         StartCoroutine(AnimationLinearInterpolation());
-        StartCoroutine(LerpRotation());
     }
 
 
@@ -32,36 +33,45 @@ public class While : MonoBehaviour
 
         while (true)
         {
-            while (elapsedTime <= animationDuration)
+            elapsedTime = 0;
+
+            while (elapsedTime < animationDuration)
             {
                 elapsedTime += Time.deltaTime;
-                objectToMove.position = Vector3.Lerp(Points[startPoint].position, Points[endPoint].position, elapsedTime / animationDuration);
+
+                //LerpUnclamped sirve para limitar el resultado entre dos puntos específicos
+                //Recorre de un punto hacia otro
+                objectToMove.position = Vector3.LerpUnclamped(
+                    points[from].position,
+                    points[to].position, 
+                    ease.Evaluate(elapsedTime / animationDuration));
+
+                //El objeto rota
+                objectToMove.rotation = Quaternion.LerpUnclamped(
+                    points[from].rotation, 
+                    points[to].rotation, 
+                    ease.Evaluate(elapsedTime / animationDuration));
+                
+                //El cuadrado cambia de color
+                material.color = Color.LerpUnclamped(
+                    colors[from], 
+                    colors[to], 
+                    ease.Evaluate(elapsedTime / animationDuration)); 
+
                 yield return null;
             }
-            elapsedTime = 0;
+
             IndexCount();
+
+            yield return null;
         }
 
     }
 
     void IndexCount()
     {
-        startPoint = endPoint;
-        endPoint = (startPoint + 1) % Points.Count;
+        from = to;
+        to = (to + 1) % points.Length;
     }
 
-    IEnumerator LerpRotation()
-    {
-        while (true)
-        {
-            elapsedTime = 0;
-
-            while (elapsedTime < rotationDuration)
-            {
-                //transform.rotation = Quaternion.LerpUnclamped(fromRotation, toRotation, ease.Evaluate(1f - elapsedTime / rotationDuration));
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-        }
-    }
 }
