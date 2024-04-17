@@ -80,6 +80,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  rotationSpeed: {x: 0, y: 0, z: 0}
+  initialX: 0
+  initialY: 0
 --- !u!1 &3291983853140055625
 GameObject:
   m_ObjectHideFlags: 0

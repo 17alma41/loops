@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [Header("Create table")]
     [SerializeField] GameObject tilePrefab;
     [SerializeField] int boardWidth;
     [SerializeField] int boardHeight;
     [SerializeField] float timeBetweenSpawns;
-    List<GameObject> instantedObjects = new List<GameObject>();
+
+    [Header("Tile animation")]
+    [SerializeField] float timeBetweenAnimations;
+    [SerializeField] float rotationSpeedX;
+    [SerializeField] float rotationSpeedY;
+    [SerializeField] float colorSpeedX;
+    [SerializeField] float colorSpeedY;
+
+
+    List<TileScript> tiles = new List<TileScript>();
 
     Vector3 position;
-    TileScript tileAnimation;
 
-    // Start is called before the first frame update
     void Start()
     {
-        tileAnimation = GetComponent<TileScript>();
         StartCoroutine(CreateBoard());
-        StartCoroutine(AnimateTiles());
+        StartCoroutine(TileAnimation());
+        //StartCoroutine(BeatAnimation());
     }
 
     IEnumerator CreateBoard()
@@ -28,35 +36,29 @@ public class Board : MonoBehaviour
             {
                 position = new Vector3(i, 0, j);
                 InstantiateAt(position);
-
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
     }
 
-    
-    IEnumerator AnimateTiles()
+    IEnumerator TileAnimation()
     {
-        
+        int current = 0;
+
+        while (tiles.Count == 0)
+            yield return null;
+
         while (true)
         {
-            for (int i = 0; i < instantedObjects.Count; i++)
-            {
-                GameObject obj = instantedObjects[i];
+            tiles[current].Animation();
+            current = ++current % tiles.Count;
 
-                
-                StartCoroutine(tileAnimation.ScaleAnimation(obj));
-                
-                
-                yield return null;
-            }
-            
+            yield return new WaitForSeconds(timeBetweenAnimations);
         }
-        
     }
     
-
     void InstantiateAt(Vector3 position)
     {
+
         GameObject instantiated = Instantiate(
            tilePrefab,
            transform
@@ -64,6 +66,41 @@ public class Board : MonoBehaviour
 
         instantiated.transform.localPosition = position;
 
-        instantedObjects.Add(instantiated);
+        TileScript ts = instantiated.GetComponent<TileScript>();
+
+        if (ts == null)
+        {
+            ts = instantiated.AddComponent<TileScript>();
+        }
+
+        ts.rotationSpeed = new Vector3(
+            rotationSpeedX,
+            rotationSpeedY,
+            0);
+
+        ts.initialX = (int)position.x;
+        ts.initialY = (int)position.z;
+        //ts.width = boardWidth;
+        //ts.height = boardHeight;
+        //ts.rSpeed = colorSpeedX;
+        //ts.gSpeed = colorSpeedY;
+
+
+        tiles.Add(ts);
     }
+
+
+    //IEnumerator BeatAnimation()
+    //{
+    //    while (true)
+    //    {
+    //        for (int i = 0; i < tiles.Count; i++)
+    //        {
+    //            tiles[i].TriggerAnimation();
+    //            yield return null;
+    //        }
+
+    //        yield return new WaitForSeconds(beatDuration);
+    //    }
+    //}
 }

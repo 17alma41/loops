@@ -168,6 +168,11 @@ MonoBehaviour:
   boardWidth: 5
   boardHeight: 3
   timeBetweenSpawns: 0.2
+  timeBetweenAnimations: 0.2
+  rotationSpeedX: 10
+  rotationSpeedY: 8
+  colorSpeedX: 2.1
+  colorSpeedY: 0
 --- !u!1 &1492899942
 GameObject:
   m_ObjectHideFlags: 0
