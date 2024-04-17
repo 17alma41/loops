@@ -47,16 +47,10 @@ public class While : MonoBehaviour
                     ease.Evaluate(elapsedTime / animationDuration));
 
                 //El objeto rota
-                objectToMove.rotation = Quaternion.LerpUnclamped(
-                    points[from].rotation, 
-                    points[to].rotation, 
-                    ease.Evaluate(elapsedTime / animationDuration));
+                objectToMove.rotation = Quaternion.LerpUnclamped(points[from].rotation, points[to].rotation, ease.Evaluate(elapsedTime / animationDuration));
                 
                 //El cuadrado cambia de color
-                material.color = Color.LerpUnclamped(
-                    colors[from], 
-                    colors[to], 
-                    ease.Evaluate(elapsedTime / animationDuration)); 
+                material.color = Color.LerpUnclamped(colors[from], colors[to], ease.Evaluate(elapsedTime / animationDuration)); 
 
                 yield return null;
             }
