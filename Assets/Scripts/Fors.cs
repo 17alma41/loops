@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fors : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class Fors : MonoBehaviour
         Normalize(position.x, 0, 5),
         Normalize(position.y, 0, 5),
         Normalize(position.z, 0, 5));
+
 
     }
 

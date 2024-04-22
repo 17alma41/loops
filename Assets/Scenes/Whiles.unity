@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191349797}
   - component: {fileID: 191349798}
+  - component: {fileID: 191349799}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: Untagged
@@ -198,6 +199,19 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animationDuration: 3
+--- !u!114 &191349799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191349796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3f69680f437b94f8f33d22154c4456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameScene: Board
 --- !u!1 &201620660
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,8 +247,8 @@ Camera:
   m_GameObject: {fileID: 201620660}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

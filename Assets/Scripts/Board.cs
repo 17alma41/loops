@@ -24,9 +24,19 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+
+        Camera.main.transform.position = new Vector3(
+            (boardWidth - 1) * 0.3f,
+            (boardHeight - 1) * 0.5f,
+            -(boardHeight - 1) * 0.5f);
+
+        Camera.main.transform.LookAt(new Vector3(
+            (boardWidth - 1) * 0.5f,
+            0,
+            (boardHeight - 1) * 0.5f));
+
         StartCoroutine(CreateBoard());
         StartCoroutine(TileAnimation());
-        //StartCoroutine(BeatAnimation());
     }
 
     IEnumerator CreateBoard()
@@ -80,27 +90,8 @@ public class Board : MonoBehaviour
 
         ts.initialX = (int)position.x;
         ts.initialY = (int)position.z;
-        //ts.width = boardWidth;
-        //ts.height = boardHeight;
-        //ts.rSpeed = colorSpeedX;
-        //ts.gSpeed = colorSpeedY;
-
 
         tiles.Add(ts);
     }
 
-
-    //IEnumerator BeatAnimation()
-    //{
-    //    while (true)
-    //    {
-    //        for (int i = 0; i < tiles.Count; i++)
-    //        {
-    //            tiles[i].TriggerAnimation();
-    //            yield return null;
-    //        }
-
-    //        yield return new WaitForSeconds(beatDuration);
-    //    }
-    //}
 }
