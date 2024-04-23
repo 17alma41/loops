@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
     [SerializeField] float rotationSpeedY;
     [SerializeField] float colorSpeedX;
     [SerializeField] float colorSpeedY;
+    [SerializeField] float beatAnimation;
 
 
     List<TileScript> tiles = new List<TileScript>();
@@ -37,6 +38,7 @@ public class Board : MonoBehaviour
 
         StartCoroutine(CreateBoard());
         StartCoroutine(TileAnimation());
+        StartCoroutine(BeatAnimation());
     }
 
     IEnumerator CreateBoard()
@@ -90,8 +92,27 @@ public class Board : MonoBehaviour
 
         ts.initialX = (int)position.x;
         ts.initialY = (int)position.z;
+        ts.width = boardWidth;
+        ts.height = boardHeight;
+        ts.aSpeed = colorSpeedX;
+        ts.bSpeed = colorSpeedY;
+
 
         tiles.Add(ts);
     }
 
+    public IEnumerator BeatAnimation()
+    {
+
+        while (true)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                tiles[i].Animation();
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(beatAnimation);
+        }
+    }
 }

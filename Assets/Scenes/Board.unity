@@ -172,8 +172,9 @@ MonoBehaviour:
   timeBetweenAnimations: 0.2
   rotationSpeedX: 10
   rotationSpeedY: 8
-  colorSpeedX: 2.1
-  colorSpeedY: 0
+  colorSpeedX: 2
+  colorSpeedY: 2
+  beatAnimation: 1
 --- !u!114 &1334907792
 MonoBehaviour:
   m_ObjectHideFlags: 0

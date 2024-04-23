@@ -11,6 +11,10 @@ public class TileScript : MonoBehaviour
     [HideInInspector] public Vector3 rotationSpeed = Vector3.zero;
     [HideInInspector] public int initialX;
     [HideInInspector] public int initialY;
+    [HideInInspector] public int width;
+    [HideInInspector] public int height;
+    [HideInInspector] public float aSpeed;
+    [HideInInspector] public float bSpeed;
 
     Material material;
 
@@ -21,9 +25,13 @@ public class TileScript : MonoBehaviour
 
     void Start()
     {
-        if (rotationSpeed != Vector3.zero)
+        if (rotationSpeed != Vector3.zero || aSpeed != 0 || bSpeed != 0)
+        {
+
             StartCoroutine(RotationCoroutine());
-        
+            StartCoroutine(ColorCoroutine());
+        }
+
     }
 
     public void Animation()
@@ -58,4 +66,42 @@ public class TileScript : MonoBehaviour
         }
     }
 
+    IEnumerator ColorCoroutine()
+    {
+        float a = initialX;
+        float b = initialY;
+        float c = 0;
+        float aDirection = 1;
+        float bDirection = 1;
+        float cDirection = 1;
+
+        while (true)
+        {
+            a += Time.deltaTime * aSpeed * aDirection;
+            if (a > width && aDirection > 0)
+                aDirection = -1;
+            else if (a < 0 && aDirection < 0)
+                aDirection = 1;
+
+            b += Time.deltaTime * bSpeed * bDirection;
+            if (b > height && bDirection > 0)
+                bDirection = -1;
+            else if (b < 0 && bDirection < 0)
+                bDirection = 1;
+
+            c += Time.deltaTime * cDirection;
+            if (c > height)
+                cDirection = -1;
+            else if (c < 0)
+                cDirection = 1;
+
+            material.color = new Color(
+                a / width,
+                b / height,
+                c / height
+            );
+
+            yield return null;
+        }
+    }
 }
